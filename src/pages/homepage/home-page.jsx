@@ -17,7 +17,14 @@ var HomePage = React.createClass({
         return (
             <div className="homePage container">
                 <div className="homePage-projects">
-                    <h1>Isomorphic Project Gallery</h1>
+                    <h1>
+                        Isomorphic Project Gallery
+                        <span className="homePage-github">
+                            <a href="https://github.com/porchdotcom/isomorphic-porch-demo">
+                                View on GitHub
+                            </a>
+                        </span>
+                    </h1>
                     <ProjectForm />
                     <ProjectList />
                 </div>

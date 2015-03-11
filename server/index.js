@@ -105,7 +105,7 @@ server.use(function(req, res) {
 });
 
 // ok, run the server
-var port = 9312;
+var port = 8000;
 server.listen(port, function() {
     var env = process.env.NODE_ENV || 'development';
     console.log('Listening on port ' + port + ' [' + env + ']');
