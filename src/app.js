@@ -17,7 +17,9 @@ var app = new Fluxible({
   component: React.createFactory(require('./pages/homepage/home-page'))
 });
 
-app.plug(fetchrPlugin());
+app.plug(fetchrPlugin({
+  xhrPath: '/api/' // all client-side XHR requests come through this endpoint
+}));
 
 app.plug(routrPlugin({ routes: require('./routes') }));
 

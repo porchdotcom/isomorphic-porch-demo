@@ -1,8 +1,8 @@
 'use strict';
 
-var app             = require('./app');
-var React           = require('react');
-window.React        = React; // for Chrome DevTools support
+var app      = require('./app');
+var React    = require('react');
+window.React = React; // for Chrome DevTools support
 
 /*
  * Grab dehydrated application state from all stores.
@@ -26,7 +26,7 @@ app.rehydrate(dehydratedState, function (err, context) {
     /*
      * React will "render" the application component at the mountNode and
      * compare the results with the existing server-rendered DOM.
-     * If everything matches (!!), React will mount itself on top and attach
+     * If everything matches, React will mount itself on top and attach
      * client-side event handlers.
      */
     React.render(

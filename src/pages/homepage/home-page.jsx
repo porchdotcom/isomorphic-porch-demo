@@ -25,7 +25,9 @@ var HomePage = React.createClass({
                             </a>
                         </span>
                     </h1>
+
                     <ProjectForm />
+
                     <ProjectList />
                 </div>
                 <Footer />

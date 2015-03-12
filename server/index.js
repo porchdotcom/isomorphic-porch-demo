@@ -18,7 +18,7 @@ server.use('/v2/assets', express.static(path.join(__dirname, '..', 'dist')));
 // Get access to the app's fetchr plugin instance
 var fetchrPlugin = app.getPlugin('FetchrPlugin');
 
-// Register our REST services with fetchr
+// Register our services with fetchr
 fetchrPlugin.registerService(require('./services/project-service'));
 
 // Set up the fetchr server middleware
@@ -64,7 +64,7 @@ server.use(function(req, res) {
         }
 
         /*
-         * Exposing your app's server-rendered state so React can re-initialize
+         * Exposing our app's server-rendered state so React can re-initialize
          * client-side on top of the existing DOM.
          *
          * Dispatchr provides dehydrate/rehydrayte functions that will serialize
