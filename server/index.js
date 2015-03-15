@@ -4,6 +4,7 @@ require('node-jsx').install({extension: '.jsx', harmony: true}); // parses JSX a
 
 var express        = require('express');
 var bodyParser     = require('body-parser');
+var isomorphicParser = require('./parsers/isomorphic-parser');
 var path           = require('path');
 var serialize      = require('serialize-javascript');
 var React          = require('react');
@@ -12,11 +13,15 @@ var navigateAction = require('flux-router-component').navigateAction;
 var HtmlComponent  = React.createFactory(require('../src/components/html-component.jsx'));
 
 var server = express();
-server.use(bodyParser.json());
 server.use('/v2/assets', express.static(path.join(__dirname, '..', 'dist')));
 
 // Get access to the app's fetchr plugin instance
 var fetchrPlugin = app.getPlugin('FetchrPlugin');
+
+var xhrPath = fetchrPlugin.getXhrPath();
+server.use(xhrPath, bodyParser.json());
+server.use(xhrPath, bodyParser.urlencoded({extended: true}));
+server.use(xhrPath, isomorphicParser);
 
 // Register our REST services with fetchr
 fetchrPlugin.registerService(require('./services/project-service'));

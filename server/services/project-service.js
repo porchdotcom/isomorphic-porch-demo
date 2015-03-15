@@ -31,7 +31,13 @@ module.exports = {
             projectImg: params.projectImg
         });
         setTimeout(function () {
-            callback(null, serverData);
+            if(req.headers['content-type'] === 'application/x-www-form-urlencoded') {
+                //This seems like the most logical place to do a redirect if the form was not done with JS
+                // However, without the req object, I am not sure how to accomplish that
+                callback(null, serverData);//placeholder
+            } else {
+                callback(null, serverData);
+            }
         }, 10);
     }
     /*

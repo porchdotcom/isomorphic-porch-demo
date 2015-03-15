@@ -13,8 +13,20 @@ var ProjectForm = React.createClass({
          * The form below uses a controlled ReactElement, which means the
          * input's value is set by the component's state.
          */
+
+         //in a real app this flag should be elsewhere and passed into state/props
+        var isClient = false;
+
+        if(typeof window !== "undefined" && window !== null) {
+            console.log('in client env');
+            isClient = true;
+        } else {
+            console.log('in server env');
+        }
+
         return {
-            value: ''
+            value: '',
+            isClient: isClient
         };
     },
 
@@ -49,22 +61,52 @@ var ProjectForm = React.createClass({
 
     render: function () {
 
+
+
+        //hardcoded img for now since the demo didn't have image uploading either
+        var ancientForm = (
+            <form action="/api?_csrf=a3fc2d&lang=en-US" method="POST">
+                <input
+                    ref="projectName"
+                    placeholder="Add a project!"
+                    name="projectName"
+                    id="projectName"
+                />
+                <input
+                    type="hidden"
+                    ref="projectImg"
+                    value="http://placehold.it/546x408"
+                    name="projectImg"
+                    id="projectImg"
+                />
+                <button
+                    className="btn projectForm-button"
+                    type="submit"> ADD
+                </button>
+            </form>
+        );
+
+        var modernForm = (
+            <form onSubmit={this.submitForm}>
+                <input
+                    ref="projectName"
+                    placeholder="Add a project!"
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                />
+                <button
+                    className="btn projectForm-button"
+                    type="submit"> ADD
+                </button>
+            </form>
+        );
+
+        var form = (this.state.isClient === true) ? modernForm : ancientForm;
+
         return (
             <div className="row">
                 <div className="col-sm-12">
-
-                    <form onSubmit={this.submitForm}>
-                        <input
-                            ref="projectName"
-                            placeholder="Add a project!"
-                            value={this.state.value}
-                            onChange={this.handleChange}
-                        />
-                        <button
-                            className="btn projectForm-button"
-                            type="submit"> ADD
-                        </button>
-                    </form>
+                    {form}
                 </div>
             </div>
         );
