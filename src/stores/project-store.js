@@ -17,10 +17,15 @@ var ProjectStore = createStore({
 
     initialize: function () {
         this.projects = [];
+        this.nextId = 4;
     },
 
     getProjects: function () {
         return this.projects;
+    },
+
+    getNextId: function () {
+        return this.nextId;
     },
 
     /*
@@ -34,6 +39,7 @@ var ProjectStore = createStore({
      */
     updateProjects: function (payload) {
         this.projects = payload;
+        this.nextId++;
         this.emitChange();
     },
 

@@ -3,6 +3,7 @@
 var React         = require('react');
 var FluxibleMixin = require('fluxible').Mixin;
 var createProject = require('../../actions/create-project');
+var ProjectStore  = require('../../stores/project-store');
 
 var ProjectForm = React.createClass({
 
@@ -27,6 +28,7 @@ var ProjectForm = React.createClass({
          */
 
         var formData = {
+            projectId: this.getStore(ProjectStore).getNextId(),
             projectName: this.state.value,
             projectImg: "http://placehold.it/546x408"
         };

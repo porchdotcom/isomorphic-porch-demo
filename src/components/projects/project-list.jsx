@@ -4,6 +4,7 @@ var React          = require('react');
 var cx             = React.addons.classSet;
 var FluxibleMixin  = require('fluxible').Mixin;
 var ProjectStore   = require('../../stores/project-store');
+var deleteProject  = require('../../actions/delete-project');
 
 var ProjectList = React.createClass({
 
@@ -58,14 +59,19 @@ var ProjectList = React.createClass({
 
 var Project = React.createClass({
 
+    mixins: [ FluxibleMixin ],
+
+    deleteProject: function (e) {
+        e.preventDefault();
+        this.executeAction(deleteProject, { projectId: e.currentTarget.id });
+    },
+
     render: function () {
 
         var classes = cx({
             'project': true,
             'col-sm-4': true,
-            'col-md-3': true,
-            'hidden-sm': this.props.index > 2,
-            'hidden-xs': this.props.index > 2
+            'col-md-3': true
         });
 
         var p = this.props.project;
@@ -79,6 +85,8 @@ var Project = React.createClass({
                 <figure>
                     <img src={p.projectImg} />
                     <figcaption>{p.projectName}</figcaption>
+                    <a href="#" className="project-delete" id={p.projectId}
+                       onClick={this.deleteProject}>Delete</a>
                 </figure>
             </div>
         );

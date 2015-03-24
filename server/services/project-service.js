@@ -27,18 +27,41 @@ module.exports = {
 
     create: function(req, resource, params, body, config, callback) {
         serverData.unshift({
+            projectId: params.projectId,
             projectName: params.projectName,
             projectImg: params.projectImg
         });
         setTimeout(function () {
             callback(null, serverData);
         }, 10);
-    }
-    /*
+    },
+
+     delete: function(req, resource, params, config, callback) {
+        var projectToDelete = serverData.filter(function(p) {
+            return p.projectId === parseInt(params.projectId);
+        })[0];
+
+        var indexToDelete;
+
+        for (var i = 0; i < serverData.length; i++) {
+            if (serverData[i].projectId === projectToDelete.projectId) {
+                indexToDelete = i;
+                break;
+            }
+        }
+
+        serverData.splice(indexToDelete, 1);
+
+        setTimeout(function () {
+            callback(null, serverData);
+        }, 10);
+     }
+
+     /*
      * Exercise!
-     * - Add Delete project feature
+     * - Add Edit project feature
      *
      * update: function(req, resource, params, body, config, callback) {},
-     * delete: function(req, resource, params, config, callback) {}
      */
+
 };
